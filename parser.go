@@ -9,6 +9,15 @@ import (
 	"github.com/Hasdcorona/go-xacml/pdp"
 )
 
+func getSimpleName(str string) string {
+	index := strings.LastIndex(str, ":")
+	if index == -1 {
+		return str
+	}
+
+	return str[index + 1:]
+}
+
 func ParsePolicy(path string) *pdp.Policy {
 	xmlFile, err := os.Open(path)
 	if err != nil {
@@ -36,7 +45,7 @@ func PrintPolicy(p *pdp.Policy) {
 	for i, rule := range p.Rules {
 		sub := "["
 		for i, subject := range rule.Target.Subjects.Subjects {
-			sub += subject.SubjectMatch.AttributeValue.Value
+			sub += getSimpleName(subject.SubjectMatch.SubjectAttributeDesignator.AttributeId) + ": " + subject.SubjectMatch.AttributeValue.Value
 			if i != len(rule.Target.Subjects.Subjects) - 1 {
 				sub += ", "
 			}
@@ -45,7 +54,7 @@ func PrintPolicy(p *pdp.Policy) {
 
 		obj := "["
 		for i, object := range rule.Target.Resources.Resources {
-			obj += object.ResourceMatch.AttributeValue.Value
+			obj += getSimpleName(object.ResourceMatch.ResourceAttributeDesignator.AttributeId) + ": " + object.ResourceMatch.AttributeValue.Value
 			if i != len(rule.Target.Resources.Resources) - 1 {
 				obj += ", "
 			}
@@ -53,8 +62,8 @@ func PrintPolicy(p *pdp.Policy) {
 		obj += "]"
 
 		act := "["
-		for i, subject := range rule.Target.Actions.Actions {
-			act += subject.ActionMatch.AttributeValue.Value
+		for i, action := range rule.Target.Actions.Actions {
+			act += getSimpleName(action.ActionMatch.ActionAttributeDesignator.AttributeId) + ": " + action.ActionMatch.AttributeValue.Value
 			if i != len(rule.Target.Actions.Actions) - 1 {
 				act += ", "
 			}
