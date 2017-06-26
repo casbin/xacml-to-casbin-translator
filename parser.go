@@ -61,9 +61,11 @@ func PrintPolicy(p *pdp.Policy) {
 		}
 		act += "]"
 
+		con := rule.Condition.AttributeValue.Value
+
 		eft := rule.Effect
 
-		fmt.Print("[" + sub + ", " + obj + ", " + act + ", " + eft + "]")
+		fmt.Print("[" + sub + ", " + obj + ", " + act + ", " + con + ", " + eft + "]")
 
 		if i != len(p.Rules) - 1 {
 			fmt.Print(", ")
