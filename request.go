@@ -9,6 +9,7 @@ type Request struct {
 	Subject                Subject        `xml:"Subject"`
 	Resource               Resource       `xml:"Resource"`
 	Action                 Action         `xml:"Action"`
+	Environment            Environment    `xml:"Environment"`
 }
 
 type Subject struct {
@@ -23,6 +24,11 @@ type Resource struct {
 
 type Action struct {
 	XMLName                xml.Name       `xml:"Action"`
+	Attribute              []Attribute    `xml:"Attribute"`
+}
+
+type Environment struct {
+	XMLName                xml.Name       `xml:"Environment"`
 	Attribute              []Attribute    `xml:"Attribute"`
 }
 

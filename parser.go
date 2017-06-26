@@ -110,7 +110,16 @@ func PrintRequest(r *Request) {
 	}
 	act += "]"
 
-	fmt.Print(sub + ", " + obj + ", " + act)
+	env := "["
+	for i, attribute := range r.Environment.Attribute {
+		env += attribute.AttributeValue
+		if i != len(r.Environment.Attribute) - 1 {
+			env += ", "
+		}
+	}
+	env += "]"
+
+	fmt.Print(sub + ", " + obj + ", " + act + ", " + env)
 }
 
 func ParseResponse(path string) *Response {
