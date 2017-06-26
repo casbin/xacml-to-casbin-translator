@@ -33,36 +33,42 @@ func ParsePolicy(path string) *pdp.Policy {
 func PrintPolicy(p *pdp.Policy) {
 	// fmt.Printf("%+v\n", p)
 
-	sub := "["
-	for i, subject := range p.Rules[0].Target.Subjects.Subjects {
-		sub += subject.SubjectMatch.AttributeValue.Value
-		if i != len(p.Rules[0].Target.Subjects.Subjects) - 1 {
-			sub += ", "
+	for i, rule := range p.Rules {
+		sub := "["
+		for i, subject := range rule.Target.Subjects.Subjects {
+			sub += subject.SubjectMatch.AttributeValue.Value
+			if i != len(rule.Target.Subjects.Subjects) - 1 {
+				sub += ", "
+			}
+		}
+		sub += "]"
+
+		obj := "["
+		for i, object := range rule.Target.Resources.Resources {
+			obj += object.ResourceMatch.AttributeValue.Value
+			if i != len(rule.Target.Resources.Resources) - 1 {
+				obj += ", "
+			}
+		}
+		obj += "]"
+
+		act := "["
+		for i, subject := range rule.Target.Actions.Actions {
+			act += subject.ActionMatch.AttributeValue.Value
+			if i != len(rule.Target.Actions.Actions) - 1 {
+				act += ", "
+			}
+		}
+		act += "]"
+
+		eft := rule.Effect
+
+		fmt.Print("[" + sub + ", " + obj + ", " + act + ", " + eft + "]")
+
+		if i != len(p.Rules) - 1 {
+			fmt.Print(", ")
 		}
 	}
-	sub += "]"
-
-	obj := "["
-	for i, object := range p.Rules[0].Target.Resources.Resources {
-		obj += object.ResourceMatch.AttributeValue.Value
-		if i != len(p.Rules[0].Target.Resources.Resources) - 1 {
-			obj += ", "
-		}
-	}
-	obj += "]"
-
-	act := "["
-	for i, subject := range p.Rules[0].Target.Actions.Actions {
-		act += subject.ActionMatch.AttributeValue.Value
-		if i != len(p.Rules[0].Target.Actions.Actions) - 1 {
-			act += ", "
-		}
-	}
-	act += "]"
-
-	eft := p.Rules[0].Effect
-
-	fmt.Print(sub + ", " + obj + ", " + act + ", " + eft)
 }
 
 func ParseRequest(path string) *Request {
