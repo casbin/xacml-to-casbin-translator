@@ -33,32 +33,34 @@ func ParsePolicy(path string) *pdp.Policy {
 func PrintPolicy(p *pdp.Policy) {
 	// fmt.Printf("%+v\n", p)
 
-	sub := ""
+	sub := "["
 	for i, subject := range p.Rules[0].Target.Subjects.Subjects {
 		sub += subject.SubjectMatch.AttributeValue.Value
 		if i != len(p.Rules[0].Target.Subjects.Subjects) - 1 {
 			sub += ", "
 		}
 	}
-	fmt.Println(sub)
+	sub += "]"
 
-	obj := ""
+	obj := "["
 	for i, object := range p.Rules[0].Target.Resources.Resources {
 		obj += object.ResourceMatch.AttributeValue.Value
 		if i != len(p.Rules[0].Target.Resources.Resources) - 1 {
 			obj += ", "
 		}
 	}
-	fmt.Println(obj)
+	obj += "]"
 
-	act := ""
+	act := "["
 	for i, subject := range p.Rules[0].Target.Actions.Actions {
 		act += subject.ActionMatch.AttributeValue.Value
 		if i != len(p.Rules[0].Target.Actions.Actions) - 1 {
 			act += ", "
 		}
 	}
-	fmt.Println(act)
+	act += "]"
+
+	fmt.Print(sub + ", " + obj + ", " + act)
 }
 
 func ParseRequest(path string) *Request {

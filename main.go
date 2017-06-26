@@ -61,17 +61,21 @@ func main() {
 	InitCases()
 	PrintCases()
 
-	//p := ParsePolicy("ConformanceTests/IIA001Policy.xml")
-	//PrintPolicy(p)
-
 	for _, c := range Cases {
-		r := ParseRequest(fmt.Sprintf("ConformanceTests/%sRequest.xml", c))
+		p := ParsePolicy(fmt.Sprintf("ConformanceTests/%sPolicy.xml", c))
 		fmt.Print(c + ", ")
-		PrintRequest(r)
-
-		res := ParseResponse(fmt.Sprintf("ConformanceTests/%sResponse.xml", c))
-		fmt.Print(" ----> ")
-		PrintResponse(res)
+		PrintPolicy(p)
 		fmt.Print("\n")
 	}
+
+	//for _, c := range Cases {
+	//	r := ParseRequest(fmt.Sprintf("ConformanceTests/%sRequest.xml", c))
+	//	fmt.Print(c + ", ")
+	//	PrintRequest(r)
+	//
+	//	res := ParseResponse(fmt.Sprintf("ConformanceTests/%sResponse.xml", c))
+	//	fmt.Print(" ----> ")
+	//	PrintResponse(res)
+	//	fmt.Print("\n")
+	//}
 }
