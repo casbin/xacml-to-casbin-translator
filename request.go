@@ -12,17 +12,17 @@ type Request struct {
 
 type Subject struct {
 	XMLName                xml.Name       `xml:"Subject"`
-	Attribute              Attribute      `xml:"Attribute"`
+	Attribute              []Attribute    `xml:"Attribute"`
 }
 
 type Resource struct {
 	XMLName                xml.Name       `xml:"Resource"`
-	Attribute              Attribute      `xml:"Attribute"`
+	Attribute              []Attribute    `xml:"Attribute"`
 }
 
 type Action struct {
 	XMLName                xml.Name       `xml:"Action"`
-	Attribute              Attribute      `xml:"Attribute"`
+	Attribute              []Attribute    `xml:"Attribute"`
 }
 
 type Attribute struct {

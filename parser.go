@@ -82,9 +82,32 @@ func ParseRequest(path string) *Request {
 }
 
 func PrintRequest(r *Request) {
-	sub := r.Subject.Attribute.AttributeValue
-	obj := r.Resource.Attribute.AttributeValue
-	act := r.Action.Attribute.AttributeValue
+	sub := "["
+	for i, attribute := range r.Subject.Attribute {
+		sub += attribute.AttributeValue
+		if i != len(r.Subject.Attribute) - 1 {
+			sub += ", "
+		}
+	}
+	sub += "]"
+
+	obj := "["
+	for i, attribute := range r.Resource.Attribute {
+		obj += attribute.AttributeValue
+		if i != len(r.Resource.Attribute) - 1 {
+			obj += ", "
+		}
+	}
+	obj += "]"
+
+	act := "["
+	for i, attribute := range r.Action.Attribute {
+		act += attribute.AttributeValue
+		if i != len(r.Action.Attribute) - 1 {
+			act += ", "
+		}
+	}
+	act += "]"
 
 	fmt.Println(sub + ", " + obj + ", " + act)
 }
