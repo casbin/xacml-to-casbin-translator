@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/Hasdcorona/go-xacml/pdp"
 )
@@ -109,5 +110,30 @@ func PrintRequest(r *Request) {
 	}
 	act += "]"
 
-	fmt.Println(sub + ", " + obj + ", " + act)
+	fmt.Print(sub + ", " + obj + ", " + act)
+}
+
+func ParseResponse(path string) *Response {
+	xmlFile, err := os.Open(path)
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return nil
+	}
+	defer xmlFile.Close()
+
+	var p Response
+	s, err := xmlFile.Stat()
+	if err != nil {
+		fmt.Println("Error stating file:", err)
+		return nil
+	}
+	size := s.Size()
+	b := make([]byte, size)
+	xmlFile.Read(b)
+	err = xml.Unmarshal([]byte(b), &p)
+	return &p
+}
+
+func PrintResponse(r *Response) {
+	fmt.Print(r.Result.Decision + ", " + strings.TrimLeft(r.Result.Status.StatusCode.Value, "urn:oasis:names:tc:xacml")[11:])
 }

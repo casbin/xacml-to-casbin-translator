@@ -5,9 +5,13 @@ import "fmt"
 var Cases []string
 
 func InitCases() {
-	for i := 1; i < 2; i++ {
+	for i := 1; i < 22; i++ {
 		Cases = append(Cases, fmt.Sprintf("IIA%03d", i))
 	}
+
+	//for i := 1; i < 54; i++ {
+	//	Cases = append(Cases, fmt.Sprintf("IIB%03d", i))
+	//}
 }
 
 func PrintCases() {
@@ -34,5 +38,10 @@ func main() {
 		r := ParseRequest(fmt.Sprintf("ConformanceTests/%sRequest.xml", c))
 		fmt.Print(c + ", ")
 		PrintRequest(r)
+
+		res := ParseResponse(fmt.Sprintf("ConformanceTests/%sResponse.xml", c))
+		fmt.Print(" ----> ")
+		PrintResponse(res)
+		fmt.Print("\n")
 	}
 }

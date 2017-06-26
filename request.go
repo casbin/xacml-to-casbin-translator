@@ -5,6 +5,7 @@ import (
 )
 
 type Request struct {
+	XMLName                xml.Name       `xml:"Request"`
 	Subject                Subject        `xml:"Subject"`
 	Resource               Resource       `xml:"Resource"`
 	Action                 Action         `xml:"Action"`
