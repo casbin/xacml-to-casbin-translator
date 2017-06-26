@@ -60,7 +60,9 @@ func PrintPolicy(p *pdp.Policy) {
 	}
 	act += "]"
 
-	fmt.Print(sub + ", " + obj + ", " + act)
+	eft := p.Rules[0].Effect
+
+	fmt.Print(sub + ", " + obj + ", " + act + ", " + eft)
 }
 
 func ParseRequest(path string) *Request {
