@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 var Cases []string
 
@@ -62,7 +65,11 @@ func main() {
 	PrintCases()
 
 	for _, c := range Cases {
-		p := ParsePolicy(fmt.Sprintf("ConformanceTests/%sPolicy.xml", c))
+		path := fmt.Sprintf("ConformanceTests/%sPolicy.xml", c)
+		if res, _ := PathExists(path); !res {
+			path = strings.Replace(path, ".xml", "1.xml", -1)
+		}
+		p := ParsePolicy(path)
 		fmt.Print(c + ", ")
 		PrintPolicy(p)
 		fmt.Print("\n")
